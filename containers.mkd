@@ -1,0 +1,8 @@
+
+
+C offers no generic container / tree data structure out of the box
+
+    * https://github.com/uecker/noplate
+    * https://github.com/brutal-org/brutal/
+    * https://github.com/tylov/STC
+  

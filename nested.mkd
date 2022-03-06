@@ -1,0 +1,16 @@
+
+## Nested Functions
+
+  Nested functions....
+
+  ```
+  void foo(int x)
+  {
+    int bar(int x) { return x + y; }
+  }
+  ```
+  
+[n2661](http://www.open-std.org/jtc1/sc22/wg14/www/docs/n2661.pdf) 2021/02/13 Uecker, nested functions
+
+* https://gcc.gnu.org/bugzilla/show_bug.cgi?id=78352
+

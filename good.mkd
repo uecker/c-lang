@@ -1,0 +1,97 @@
+
+# Advantages #
+
+Not all is bad. Here is a list of things I like about C.
+
+## Fast Compilation ##
+
+C compiles fast, which saves a lot of time when developing.
+
+There are different reasons for this:
+
+1. One-Pass Compilation
+
+C has a once-through grammar. It is possible to do tokenizing,
+parsing, constant folding, type checking, and create an
+intermedate language (or even machine code) in one pass. It is
+not necessary to produce an AST which is then traversed again.
+(GCC for example compiles C to a tree structure, but this is
+not an AST)
+
+2. Translation Units
+
+C programs are split into translation units which can be
+compiled separately. These are split into an interface
+part (headers) and implementation (c file). Only when the
+interface is changed do other modules that depend on it
+need to be re-compiled.  C allows forward definitions of
+structure and union types in header.
+
+Header: foo.h
+  
+    struct foo;
+    extern void foo_process(struct foo* x);
+  
+Implementation: foo.c
+   
+    #include "foo.h"
+    struct foo {
+      int y;
+    };
+    void foo_process(stuct foo* x)
+    {
+      x->y++;
+    }
+   
+In contrast, in C++ class definition or template code have
+to be in the heade.
+
+
+## WYSIWYG ##
+
+C has a WYSIWYG property: What you see is what you get.
+
+* There is no code running behing your back (e.g. no
+  destructor at end of a compound statement)
+  
+* There is no complicated name lookup.
+
+* Except for macros and constant folding, there is 
+  no compile time computation.
+
+* There are no references, so there is a clear syntactic
+  difference between pass-by-value and pointers and it is
+  obvious whether a function can change a variable.
+  
+## Performance ##
+
+C code can be very performant because there is not much
+overhead.
+
+## Stability ##
+
+The language is very stable. Code can be expected to work
+even after decades. The language standard tries to preserve
+backwards compatibility. Compilers have modes for older
+language versions.
+
+## Portability ##
+
+Essentially every computer architecture supports C.
+
+## Interoperability ##
+
+C has a stable ABI which is used for language interoperability.
+
+## No Nonsense ##
+
+C tries to be simply and does not add language features without
+a good reason.  Instead of concentrating on specific properties of
+the programming language (a class hierarchy, the design of generic
+compile-time algorithms, etc.) and how those might fit together,
+one is free to concentrate on the problem at hand. Nevertheless
+it is possible to write high-level and generic code in C.  
+
+
+
+

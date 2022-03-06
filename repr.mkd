@@ -1,0 +1,10 @@
+
+# Representations #
+
+In the past, machine used very unusual representations for each
+native types.
+
+With C23, C will require two's complement.
+
+Null pointers do not need to have a 0 representation.
+

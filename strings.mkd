@@ -1,0 +1,15 @@
+
+### Strings ###
+
+One problem with C is that sting handling is error-prone.
+
+A pointer types that indicates that it points to a null-terminated string could help.
+
+String libraries can be used for safe string handling.
+
+Here is a list of potential candidates and random ideas to look at:
+* https://github.com/tylov/STC
+* https://github.com/brutal-org/brutal/
+* https://github.com/uecker/noplate
+
+

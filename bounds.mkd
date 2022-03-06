@@ -1,0 +1,31 @@
+
+# Bounds Checking #
+
+C has a bounded pointer type: A variably-modified type, i.e. a type
+to a VLA.
+
+    int N
+    char (*p)[N] = malloc(sizeof *p);
+    if (!p)
+     ...
+     
+    (*p)[N] = 1; // run-time bounds check possible
+    
+    
+ * [n1990](http://www.open-std.org/jtc1/sc22/wg14/www/docs/n1990.htm)
+   [n2660](http://www.open-std.org/jtc1/sc22/wg14/www/docs/n2660.pdf)
+   [n2778](http://www.open-std.org/jtc1/sc22/wg14/www/docs/n2778.pdf)
+   [n2779](http://www.open-std.org/jtc1/sc22/wg14/www/docs/n2779.pdf)
+   [n2780](http://www.open-std.org/jtc1/sc22/wg14/www/docs/n2780.pdf)
+   [n2905](http://www.open-std.org/jtc1/sc22/wg14/www/docs/n2905.pdf)
+   [n2906](http://www.open-std.org/jtc1/sc22/wg14/www/docs/n2906.pdf)
+   [n2907](http://www.open-std.org/jtc1/sc22/wg14/www/docs/n2907.pdf)
+   
+   
+ * https://gcc.gnu.org/legacy-ml/gcc-patches/2015-02/msg01565.html
+ * https://gcc.gnu.org/legacy-ml/gcc-patches/2015-02/msg01720.html
+ * https://gcc.gnu.org/bugzilla/show_bug.cgi?id=65280
+ * https://gcc.gnu.org/git/?p=gcc.git&a=commit;h=de1b5c17fd1418f01f0a57d03023c21d888dc97c
+ * https://gcc.gnu.org/bugzilla/show_bug.cgi?id=98608
+ * https://gcc.gnu.org/bugzilla/show_bug.cgi?id=98623
+   

@@ -1,0 +1,23 @@
+
+# Checked Arithmetic #
+
+Based on existing compiler builtins, C23 will get type-generic
+functions for checked integer arithmetic to detect overflow
+in [signed arithmetic](./signed.mkd).
+
+    #include <stdckdint.h>
+   
+    int a = -1;
+    int b = ...
+    int c;
+    if (ckd_mul(&c, a, b))
+      ... error ...
+
+
+* [n2669](http://www.open-std.org/jtc1/sc22/wg14/www/docs/n2669.pdf)
+  [n2681](http://www.open-std.org/jtc1/sc22/wg14/www/docs/n2681.pdf)
+  [n2683](http://www.open-std.org/jtc1/sc22/wg14/www/docs/n2683.pdf)
+  [n2792](http://www.open-std.org/jtc1/sc22/wg14/www/docs/n2792.pdf)
+  [n2868](http://www.open-std.org/jtc1/sc22/wg14/www/docs/n2868.pdf)
+
+

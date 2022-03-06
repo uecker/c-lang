@@ -1,0 +1,25 @@
+
+## Pointer Provenance
+
+  Compilers optimize based on the concept of pointer provenance. With this concept it
+  it would not even be possible to allocate automatic variables to registers, so this
+  is important. From the C standard this follows from 1) it is UB to move a pointer
+  out of an array (or one after) and 2) a pointer becomes indeterminate when the
+  life time of the pointed-to object ends.  Overall rules were not clear.
+  
+  The C standard also allows pointer-integer roundtrips via (u)intptr_t when supported,
+  and has clear rules for pointer comparison.  Both are broken by compiler optimizations
+  on GCC.
+
+  Refs.: [n2577](http://www.open-std.org/jtc1/sc22/wg14/www/docs/n2577.pdf), [n2676](http://www.open-std.org/jtc1/sc22/wg14/www/docs/n2676.pdf)
+  
+  https://godbolt.org/z/MKaxWE
+  
+  
+### Pointer-Integer Roundtrips ###
+  
+* https://bugs.llvm.org/show_bug.cgi?id=34548#c77
+
+### Pointer Comparisons ###
+
+* https://gcc.gnu.org/bugzilla/show_bug.cgi?id=61502

@@ -1,0 +1,37 @@
+## typeof [GCC, Clang]
+
+  *typeof* is supported by many C compilers essentially forever, but not part of the standard. It is finally accepted to C23 thanks to JeanHeyd Meneide.
+  
+  There were minor incompatibilities and problems that had to be resolved first.
+  The main question was whether it should drop qualifiers or not. Dropping qualifiers seems more useful, because one can always add them back.
+  
+  ```
+  const int i = 0;
+  const typeof_unqual(i) j = 1;
+  ```
+  
+  One example, where one needs the qualifiers is when redeclaring variables:
+  ```
+  extern const int i;
+  extern typeof(i) i;
+  ```
+  
+  https://godbolt.org/z/vEqhsb
+  
+  Existing implementation preserve qualifiers. GCC did drop *_Atomic* (as of 2020) so I changed this for consistency. But this was required for stdatomic.h so a way to drop qualifiers was needed first. It should be possible to drop qualifiers by forcing a lvalue conversion, e.g.:
+  ```
+  const int i = 0;
+  typeof(0,i) j;
+  j = 1;
+  ```
+  
+  This also did not work and needed a fix. One way is to use a cast to the type as casts remove qualifiers, but this requires to use *typeof* twice.
+  
+  Assignment should also drop qualifiers.
+ 
+  Refs. [n1229](http://www.open-std.org/jtc1/sc22/wg14/www/docs/n1229.pdf),  [n2593](http://www.open-std.org/jtc1/sc22/wg14/www/docs/n2593.htm),  [n2619](http://www.open-std.org/jtc1/sc22/wg14/www/docs/n2619.htm),  [n2685](http://www.open-std.org/jtc1/sc22/wg14/www/docs/n2685.htm),  [n2724](http://www.open-std.org/jtc1/sc22/wg14/www/docs/n2724.htm), [n2899](http://www.open-std.org/jtc1/sc22/wg14/www/docs/n2899.htm), [n2926](http://www.open-std.org/jtc1/sc22/wg14/www/docs/n2927.htm)
+
+
+  GCC: [Commit](https://gcc.gnu.org/g:768ce4f0ceb030e38427e85e483ed44330cd5da7) [Commit](https://gcc.gnu.org/git/gitweb.cgi?p=gcc.git;h=32934a4f45a72144cdcd0712cc294fe88c36f13d)
+  
+  (Regressions which needed to be fixed: https://gcc.gnu.org/bugzilla/show_bug.cgi?id=98029, https://gcc.gnu.org/bugzilla/show_bug.cgi?id=97981, https://gcc.gnu.org/bugzilla/show_bug.cgi?id=98260)

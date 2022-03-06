@@ -1,0 +1,67 @@
+# Arrays #
+
+List of ideas: [n2660](http://www.open-std.org/jtc1/sc22/wg14/www/docs/n2660.pdf) 
+
+* arrays ...
+   - array assignment
+   - vectorized operations
+   - Lengthof
+   - 0 size
+    
+   - VLA initialization
+  - pointer to VLAs in structs
+  - sizeof to VLA in prototype
+ 
+    
+* flexible array member
+  - sizeof 
+  - struct return, dereference
+  - with struct compatibility, structs with FAM could be incomplete
+
+## sizeof
+
+```
+void foo(int i[3])
+{
+    sizeof(i); // !
+    struct { int i; int x[]; } x;
+    sizeof(x); // !
+}
+```
+
+[n2660](http://www.open-std.org/jtc1/sc22/wg14/www/docs/n2660.pdf)
+  
+
+
+## Compatibility of Pointers to Arrays with Qualifiers **[GCC, Clang, C23]**
+
+  Multi-dimensional arrays can not be passed to functions expecting const-qualified arrays.
+
+  ```
+  void transpose(int N, int M, double out[M][N], const double in[N][M]);
+  double a[2][2] = { ... };
+  double o[2][2];
+  transpose(2, 2, o, a); // passing 'a' not allowed
+  ```
+  
+  The problem is that the rules allowing assignment of pointers to some type to pointers to the qualified types do not work for pointer to arrays because it is only the element type that is qualified and not the array.
+
+  Refs.: [n1923](http://www.open-std.org/jtc1/sc22/wg14/www/docs/n1923.htm), [n2497](http://www.open-std.org/jtc1/sc22/wg14/www/docs/n2497.pdf), [n2607](http://www.open-std.org/jtc1/sc22/wg14/www/docs/n2607.pdf)
+
+  GCC: [Commit](https://github.com/gcc-mirror/gcc/commit/768952be25c2fc50bce51a5658377934d49f473f)
+ 
+### tertiary operator ###
+
+  Related to this are also changes to how the tertiary operator behaves
+  
+  Fixed: https://godbolt.org/z/6hE3z35fz
+
+## VLA Initialization **[C23]**
+
+  VLAs must be initialized in a loop, which is annoying and error prone. As part of general improvements to initialization this was fixed in C23
+
+  ```
+  float a[N] = { };
+  ```
+[n2796](http://www.open-std.org/jtc1/sc22/wg14/www/docs/n2796.htm), [n2900](http://www.open-std.org/jtc1/sc22/wg14/www/docs/n2900.htm)
+

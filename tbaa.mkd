@@ -1,0 +1,15 @@
+## Effective Types
+
+### Fixed Bugs ###
+* https://gcc.gnu.org/bugzilla/show_bug.cgi?id=57359
+
+### Open ###
+
+* https://gcc.gnu.org/bugzilla/show_bug.cgi?id=66812
+
+### Open Bugs related to Unions ###
+
+* https://gcc.gnu.org/bugzilla/show_bug.cgi?id=101641
+* https://gcc.gnu.org/bugzilla/show_bug.cgi?id=65892
+* https://gcc.gnu.org/bugzilla/show_bug.cgi?id=82224
+* https://gcc.gnu.org/bugzilla/show_bug.cgi?id=14319

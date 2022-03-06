@@ -1,0 +1,14 @@
+
+## Atomic Types
+
+  Annoyingly, the _Atomic quaifier does not follow the usual rules for qualifiers. _Atomic-qualified types are completely new types which are not compatible with the non-atomic type. In particular they might have different size and alignment.
+  
+  Thus, it is not possible to implicitely convert a pointer to a non-atomic to a routine that wants to use atomic accesses.
+
+Potential solution: Make *_Atomic* a proper qualifier while _Atomic( ) may also change size/alignment.
+
+https://godbolt.org/z/5jo3aY
+https://godbolt.org/z/aqqzrs
+
+
+[n2771](http://www.open-std.org/jtc1/sc22/wg14/www/docs/n2771.pdf), [n2909](http://www.open-std.org/jtc1/sc22/wg14/www/docs/n2909.pdf)

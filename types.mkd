@@ -1,0 +1,24 @@
+## Compatibilty of Tagged Types
+
+  Two identically declared structs are not compatible (except when declared in different translation units).
+  ```
+  struct foo { int x; } data;
+  void f(void)
+  {
+     struct foo { int x; }* ptr = &data; // incompatible types
+     ptr->x; // undefined behavior
+  }
+  ```
+  Four identically declared structs may be incompatible and compatible at the same time. Consider the four structs:
+  ```
+  // file 1
+  struct { int x; } s1;
+  struct { int x; } s2;
+  // file 2
+  struct { int x; } s3;
+  struct { int x; } s4;
+  ```
+  s1 is compatible with s3 and s4 but not with s2. s2 iis compatible with s3 and s4 but not with s1. s3 is compatible with s1 and s2, but not s4. s4 is compatible with s1 and s2, but not with s3. Combine this with effective type fules (aliasing)...
+  
+  Refs.: [n1102](http://www.open-std.org/jtc1/sc22/wg14/www/docs/n1102.htm), [n2105](http://www.open-std.org/jtc1/sc22/wg14/www/docs/n2105.htm), [n2366](http://www.open-std.org/jtc1/sc22/wg14/www/docs/n2366.pdf)
+  

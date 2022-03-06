@@ -1,0 +1,19 @@
+
+# Unreachable #
+
+C23 will get a feature based on __builtin_unreachable() compiler
+extensions to indicate unreachable control flow:
+
+    #include <stddef.h>
+    
+    if (x)
+       unreachable();
+
+(This is a macros, I would have preferred this to be a function.
+C++ will have a function, and a function is useful:
+https://godbolt.org/z/r6fvK7Gvr)
+
+
+* [n2757](http://www.open-std.org/jtc1/sc22/wg14/www/docs/n2757.pdf)
+  [n2816](http://www.open-std.org/jtc1/sc22/wg14/www/docs/n2816.pdf)
+  [n2826](http://www.open-std.org/jtc1/sc22/wg14/www/docs/n2826.pdf)

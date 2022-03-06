@@ -1,0 +1,29 @@
+
+# Undefined Behavior #
+
+Undefined behavior has three purposes:
+
+* Language Extensions
+* Erroneous Behavior
+* Optimization
+
+## Time Travel ##
+
+C++ allows time-travel. Time-travel of UB causes
+real world issues:
+
+* https://bugzilla.redhat.com/show_bug.cgi?id=520916
+* https://gcc.gnu.org/bugzilla/show_bug.cgi?id=41239
+* https://www.postgresql.org/message-id/14006.1251987857%40sss.pgh.pa.us
+* https://gcc.gnu.org/bugzilla/show_bug.cgi?id=29968
+* https://godbolt.org/z/dKMrvo9Ke
+* https://godbolt.org/z/5vx9cPfM7
+* https://godbolt.org/z/8a8fTW8qP
+* https://gcc.gnu.org/bugzilla/show_bug.cgi?id=104800
+
+
+## Literature ##
+
+* https://people.csail.mit.edu/nickolai/papers/wang-stack.pdf
+
+

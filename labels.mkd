@@ -1,0 +1,45 @@
+## Free Positioning of Labels Inside Compound Statements
+**[GCC, C23]**
+
+For some reason, it was not possible to place labels at the
+before declarations or at end of compound statements. One
+can work around this by placing a null statement after the
+label:
+
+  ```
+  out: ;
+  }
+  ```
+    
+This is only a minor syntactic isuse, but annoying (I run
+into it all the time and others do too, e.g. [Stackoverflow](https://stackoverflow.com/questions/70464647/why-this-code-is-showing-error-label-at-end-of-compound-statement))
+
+  ```
+  void f(int x)
+  {
+  restart: // label not allowed before declaration
+    int z = 3 * x;
+    switch (x) {
+      case 1: // label not allowed before declaration
+        int y = z;
+        if (y == 3)
+          goto out;
+        if (y > z)
+          goto restart;
+      break;
+      default: // label not allowed at end of block
+     /* do nothing */
+   }
+  out: // label not allowed at end of block
+  }
+  ```
+  
+  The change for C also made the grammar simpler.
+  A similar change will likely end up in C++ too (although in a way that makes
+  it look like a special case in the grammar). 
+  
+  Refs.: [n2496](http://www.open-std.org/jtc1/sc22/wg14/www/docs/n2496.pdf), [n2508](http://www.open-std.org/jtc1/sc22/wg14/www/docs/n2508.pdf), [n2663](http://www.open-std.org/jtc1/sc22/wg14/www/docs/n2663.pdf)
+  
+  GCC: [Commit](https://github.com/gcc-mirror/gcc/commit/8b7a9a249a63e066cff6e95db05a3158b4cc56cc)
+  
+  

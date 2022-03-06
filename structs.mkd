@@ -1,0 +1,12 @@
+
+# Issues with Qualifiers #
+
+* anonymous unions/structs
+    Do qualifiers have an effect?
+    
+* struct/union members with qualifiers during struct assignment
+    * there is no lvalue with qualifiers involved
+    * for const there is a rule in the def. of 'modifiable lvalue'
+    * volatile may be UB (has a volatile object modified using non-vol lv)
+    * _Atomic ??
+    * also: Unnamed members of structure objects have indeterminate value even after initialization.

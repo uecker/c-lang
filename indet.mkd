@@ -1,0 +1,7 @@
+
+
+## Indeterminate value ##
+
+Rename indeterminate state to value
+
+[n2668](http://www.open-std.org/jtc1/sc22/wg14/www/docs/n2668.pdf),   [n2772](http://www.open-std.org/jtc1/sc22/wg14/www/docs/n2772.pdf) 

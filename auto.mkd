@@ -1,0 +1,9 @@
+
+### Auto ###
+
+C++ has auto. Compilers support __auto_type as an extension
+
+  auto x = 3;
+  
+  
+

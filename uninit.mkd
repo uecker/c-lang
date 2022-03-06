@@ -1,0 +1,24 @@
+
+
+# Uninitialized Values #
+
+## Compiler Issues ##
+
+* https://godbolt.org/z/xnasYhvfx
+* https://godbolt.org/z/zxPbnKvE6
+* https://bugs.llvm.org/show_bug.cgi?id=44512
+* https://gcc.gnu.org/bugzilla/show_bug.cgi?id=93301
+* https://gcc.gnu.org/bugzilla/show_bug.cgi?id=93444
+
+## Unstable Memory ##
+
+* https://lore.kernel.org/lkml/1446600367-7976-2-git-send-email-minchan@kernel.org/#798417
+* https://www.youtube.com/watch?v=kPR8h4-qZdk&t=1150s
+
+## Zero Initialization ##
+
+* https://gcc.gnu.org/bugzilla/show_bug.cgi?id=87210
+
+* {}     
+* initialization { 0 } for _Decimal does not yield (..)0
+
