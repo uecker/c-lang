@@ -25,5 +25,6 @@ real world issues:
 ## Literature ##
 
 * https://people.csail.mit.edu/nickolai/papers/wang-stack.pdf
-
+* https://devblogs.microsoft.com/oldnewthing/20140627-00/?p=633
+* https://blog.regehr.org/archives/232
 
