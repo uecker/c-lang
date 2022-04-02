@@ -6,4 +6,8 @@ C++ has auto. Compilers support __auto_type as an extension
   auto x = 3;
   
   
+There is a difference for __auto_type between clang and GCC.
+For GCC the identifier is not declared until after the
+initialization while for clang this is an error.  
+  
 
