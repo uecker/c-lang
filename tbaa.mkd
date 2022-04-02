@@ -1,5 +1,12 @@
 ## Effective Types
 
+Effective type rules in 6.5§6 specify that memory
+may have an effective type. It is either the declared type
+or the type of the last store (when the type of the lvalue
+has not character type). Reading such memory is then
+allowed only using types 6.5§7.
+
+
 ### Fixed Bugs ###
 * https://gcc.gnu.org/bugzilla/show_bug.cgi?id=57359
 
