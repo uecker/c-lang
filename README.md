@@ -1,4 +1,4 @@
-# C Programming Lanuguage: Issues and Developments
+# C Programming Language: Issues and Developments
 
 I use the C language for most of my projects due to its performance,
 fast compiler times, wide support, low-level control, long-term
