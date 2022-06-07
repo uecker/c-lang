@@ -35,7 +35,7 @@ void foo(int i[3])
 
   variably modifed types become mandatory in C23
   
-  [n2907](https://www.open-std.org/jtc1/sc22/wg14/www/docs/n2907.pdf[n2992]), (https://www.open-std.org/jtc1/sc22/wg14/www/docs/n2992.pdf) (adopted in C23)
+  [n2907](https://www.open-std.org/jtc1/sc22/wg14/www/docs/n2907.pdf), [n2992](https://www.open-std.org/jtc1/sc22/wg14/www/docs/n2992.pdf) (adopted in C23)
 
 ## Compatibility of Pointers to Arrays with Qualifiers **[GCC, Clang, C23]**
 
