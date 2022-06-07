@@ -1,7 +1,13 @@
 
 
-## Indeterminate value ##
+## Indeterminate Representation ##
 
-Rename indeterminate state to value
+In C23 indeterminate value is renamed to indeterminate representation
+and trap representation is renamed to non-value representation.
+The previous definition was misleading as objects with indeterminate
+representation cause undefined behavior during lvalue conversion,
+so there is never a value (in the scope of the standard). 
 
-[n2668](http://www.open-std.org/jtc1/sc22/wg14/www/docs/n2668.pdf),   [n2772](http://www.open-std.org/jtc1/sc22/wg14/www/docs/n2772.pdf) 
+* [n2668](https://www.open-std.org/jtc1/sc22/wg14/www/docs/n2668.pdf)
+* [n2772](https://www.open-std.org/jtc1/sc22/wg14/www/docs/n2772.pdf)
+* [n2864](https://www.open-std.org/jtc1/sc22/wg14/www/docs/n2863.pdf) (adopted in C23)
