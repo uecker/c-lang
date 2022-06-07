@@ -7,6 +7,16 @@ Undefined behavior has three purposes:
 * Erroneous Behavior
 * Optimization
 
+
+According to my reading of the C standard, UB is behavior that
+occurs for certain conditions. Consequently, it does not
+imply an impossible assumption. 
+
+Compilers can still derive assumptions: If there are no
+restrictions on the behavior, than all consequences from
+optimizations using the assumption are ok, as long as
+previous observable behavior is not affected.
+
 ## Time Travel ##
 
 C++ allows time-travel. Time-travel of UB causes
