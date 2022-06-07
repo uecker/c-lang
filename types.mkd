@@ -20,5 +20,7 @@
   ```
   s1 is compatible with s3 and s4 but not with s2. s2 iis compatible with s3 and s4 but not with s1. s3 is compatible with s1 and s2, but not s4. s4 is compatible with s1 and s2, but not with s3. Combine this with effective type fules (aliasing)...
   
-  Refs.: [n1102](http://www.open-std.org/jtc1/sc22/wg14/www/docs/n1102.htm), [n2105](http://www.open-std.org/jtc1/sc22/wg14/www/docs/n2105.htm), [n2366](http://www.open-std.org/jtc1/sc22/wg14/www/docs/n2366.pdf)
+  Refs.: [n1102](http://www.open-std.org/jtc1/sc22/wg14/www/docs/n1102.htm), [n2105](http://www.open-std.org/jtc1/sc22/wg14/www/docs/n2105.htm), [n2366](http://www.open-std.org/jtc1/sc22/wg14/www/docs/n2366.pdf), [n2863](https://www.open-std.org/jtc1/sc22/wg14/www/docs/n2863.pdf)
+  
+  [GCC patch](https://gcc.gnu.org/pipermail/gcc-patches/2022-June/596300.html)
   
