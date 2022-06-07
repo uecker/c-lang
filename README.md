@@ -1,6 +1,6 @@
 # C Programming Lanuguage: Issues and Developments
 
-I use the C language for most of my projects due to performance,
+I use the C language for most of my projects due to its performance,
 fast compiler times, wide support, low-level control, long-term
 stability and simplicity ([advantages](./good.mkd))
 
@@ -37,7 +37,7 @@ addressing them.
 
 ## General Issues ##
 
-* [Indeterminate Values](./indet.mkd)
+* [Indeterminate Values](./indet.mkd) *C23 Improvements*
 * [Effective Types](./tbaa.mkd)
 * [Uninitialized Values](./uninit.mkd)
 * [Signed Overflow](./signed.mkd)
