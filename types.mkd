@@ -1,3 +1,17 @@
+## Type Completion
+
+When are types completed?
+  ```
+  _Generic(0, struct S: 1, default: (struct S { int x; }) { 0 } );
+  ```
+  
+* https://godbolt.org/z/va8ah1aWT
+* https://godbolt.org/z/v1WT6bava
+
+## Qualifiers
+
+Qualifiers on function return types, parameters, and rvalues.
+
 ## Compatibilty of Tagged Types
 
   Two identically declared structs are not compatible (except when declared in different translation units).
