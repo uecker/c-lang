@@ -24,6 +24,7 @@ or faster and safer code:
 * https://gcc.gnu.org/bugzilla/show_bug.cgi?id=105855
 
 
+References:
 
 * GCC will not implement -fsanitize=unsigned-integer-overflow
   https://gcc.gnu.org/bugzilla/show_bug.cgi?id=96829
