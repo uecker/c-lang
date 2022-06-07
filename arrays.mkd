@@ -31,7 +31,11 @@ void foo(int i[3])
 
 [n2660](http://www.open-std.org/jtc1/sc22/wg14/www/docs/n2660.pdf)
   
+## Variably Modified Types **[C23]**
 
+  variably modifed types become mandatory in C23
+  
+  [n2907](https://www.open-std.org/jtc1/sc22/wg14/www/docs/n2907.pdf[n2992]), (https://www.open-std.org/jtc1/sc22/wg14/www/docs/n2992.pdf) (adopted in C23)
 
 ## Compatibility of Pointers to Arrays with Qualifiers **[GCC, Clang, C23]**
 
@@ -55,6 +59,7 @@ void foo(int i[3])
   Related to this are also changes to how the tertiary operator behaves
   
   Fixed: https://godbolt.org/z/6hE3z35fz
+  Clang bug: https://github.com/llvm/llvm-project/issues/54568
 
 ## VLA Initialization **[C23]**
 
