@@ -2,3 +2,37 @@
 # Signed Arithmetic #
 
 [Checked Arithmetic](./checked.mkd)
+
+For signed integers you can apply the rules of ordinary mathematical integers.
+This works even with limited range because the compiler can assume that
+overflow does not happen. 
+
+The use of signed integers results in faster code:
+
+* by deriving loop bounds: https://godbolt.org/z/WbKsxxnd8
+* enabling vectorization: https://godbolt.org/z/531ex7zEW
+* eliminating index variables: https://godbolt.org/z/hc7PfzbqK
+* ...
+
+or safer code
+
+* by run-time checks: https://godbolt.org/z/P98TdGcs4
+
+or faster and safer code:
+
+* https://godbolt.org/z/531ex7zEW
+* https://gcc.gnu.org/bugzilla/show_bug.cgi?id=105855
+
+
+
+* GCC will not implement -fsanitize=unsigned-integer-overflow
+  https://gcc.gnu.org/bugzilla/show_bug.cgi?id=96829
+
+* CppCon 2016: Chandler Carruth “Garbage In, Garbage Out: Arguing about Undefined Behavior..."
+  min 40 https://www.youtube.com/watch?v=yG1OZ69H_-o
+  
+* Dietz et al. Understanding Integer Overflow in C/C++
+  https://dl.acm.org/doi/pdf/10.1145/2743019
+
+* Ian Lance Taylor: Signed Overflow
+  https://www.airs.com/blog/archives/120
