@@ -93,5 +93,20 @@ one is free to concentrate on the problem at hand. Nevertheless
 it is possible to write high-level and generic code in C.  
 
 
+## The proof is in the pudding ##
+
+Most software I use or rely on is written in C:
+
+* Linux kernel
+* X Window System https://x.org/
+* Xcfe Desktop Environment https://www.xfce.org/
+* BASH https://www.gnu.org/software/bash/
+
+* VIM https://www.vim.org/
+* GIMP GNU Image Manipulation Program https://www.gimp.org/
+
+* BIND 9 https://www.isc.org/bind/
+* Apache https://www.apache.org/
+* PostgresSQL https://www.postgresql.org/
 
 
