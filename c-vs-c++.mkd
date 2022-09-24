@@ -1,0 +1,221 @@
+
+
+# Is C++ more type safe than C?
+
+
+In the past, C++ introduced features that made the
+language more type safe such as function prototypes.
+Most of these changes were adopted by C a long time ago,
+but some differences remain. C++ people often argue
+that C++ is a "better C" because these differences
+still improve type safety. 
+
+
+The C++ FAQ mainly points at the rules related to void
+pointers, where C++ requires explicit casts.
+
+Consider this C example:
+
+  ```
+  int foo(short* p, void* q)
+  {
+    int *i = q;
+    return *p + *i;
+  }
+  ```
+
+Let's assume a typo changes this to
+
+  ```
+  int foo(short* p, void* q)
+  {
+    int *i = p;
+    return *p + *i;
+  }
+  ```
+
+This then invokes a warning about assignment of incompatible
+pointer in C.
+
+The C++ FAQ claims that C++ is more type safe because it
+enforces explicit casts (both programs above are not
+accepted by C++) that make the intention of the programmer
+clear. This sounds plausible, but let's see whether this
+really improves type safety in this example:
+
+  ```
+  int foo(short* p, void* q)
+  {
+    int *i = (int*)q;
+    return *p + *i;
+  }
+  ```
+
+For the correct program this makes no difference. But the
+incorrect program is now also accepted without diagnostic:
+
+  ```
+  int foo(short* p, void* q)
+  {
+    int *i = (int*)p;
+    return *p + *i;
+  }
+  ```
+
+
+So at least in our toy example, the C++ rules actually
+weaken type safety! Of course, I cherrypicked my example
+to show that the situation is not so simple as the
+C++ FAQ implies. We can produce other examples where
+C++ does indeed appear to be safer:
+
+  ```
+  int foo(int* p, void* q)
+  {
+    int *i = p;
+    return *i;
+  }
+  ```
+
+Accidentally changing this to
+
+  ```
+  int foo(int* p, void* q)
+  {
+    int *i = q;
+    return *i;
+  }
+  ```
+
+will be silently accepted in C but not in C++. 
+
+To summarize, the requirement for explicit casts may
+prevent the accidental use of a void pointer where
+another pointer should be used, but then it can also
+hide the accidental use of another pointer where a
+void pointer should be used. The C++ rules do not seem
+to have any inherent advantage as both errors should
+have the same probability.
+
+There a couple of arguments, which might imply that the
+C rules are more useful.
+
+1. Void pointers are often not valid when other pointers
+are as in the following example:
+
+  ```
+  int foo(int* p, void* q)
+  {
+    return *q;  // fails
+  }
+  ```
+
+The rules for both languages would then require an
+explicit cast:
+
+  ```
+  int foo(int* p, void* q)
+  {
+    return *(int*)q;  // accepted
+  }
+  ```
+
+So protecting against the accidental use of void pointers
+is less useful, because often it is invalid anyway.
+
+2. For cases where C++ might catch an error, other language
+features in C++ then often weaken type safety again. In this
+case, C++ would detect the type:
+
+  ```
+  int bar(int *p);
+
+  int foo(int *p, void* q)
+  {
+    bar(q); // fails in C++
+  }
+  ```
+
+But then overloading could change this situation again:
+
+  ```
+  int bar(void* p);
+  int bar(int *p);
+
+  int foo(int *p, void* q)
+  {
+    bar(q);
+  }
+  ```
+
+Or similarily with templates:
+
+  ```
+  template<typename T>
+  int bar(T* p);
+
+  int foo(int *p, void* q)
+  {
+    bar(q);
+  }
+  ```
+
+
+3. There is other cost associated with the casts. In C
+it is ideomatic to write
+
+  ```
+  int *p = malloc(sizeof *p);
+  ```
+
+This is useful also for arrays where explicit coding of
+the size computation is then avoided:
+
+  ```
+  int (*p)[5] = malloc(sizeof *p);
+  ```
+
+In C++ one would need an additional cast:
+
+  ```
+  int (*p)[5] = (int(*)[5])malloc(sizeof *p);
+  ```
+
+
+But then the type has to be repeated multiple times.
+While this can be avoided with auto, it then prevents
+the use of the variable name in sizeof.
+
+  ```
+  auto p = (int(*)[5])malloc(5 * sizeof int);
+  ```
+
+A better way to write this in C++ is:
+
+  ```
+  auto p = new int[5];
+  ```
+
+
+But this also directly points to another type safety
+problem in C++: One then has to remember to use
+delete[] instead of delete. The type system does not
+help to detect this:
+
+  ```
+  void bar(int *p)
+  {
+    delete *p;
+  }
+
+  void foo(void)
+  {
+    auto p = new int[5];
+    bar(p);
+  }
+  ```
+
+
+
+  
+  
