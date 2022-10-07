@@ -1,0 +1,57 @@
+
+# Conversions #
+
+Often people claim that integer promotions and usual arithmetic
+conversions are difficult. As expressed in the ISO C standard,
+this is certainly the case, but the rules are really very simple:
+
+
+C orders all integer types by rank:
+
+* bool
+* char/signed char/unsigned char
+* short/unsigned short
+* int/unsigned int
+* long/unsigned long
+* long long/unsigned long long
+
+
+The resulting type after integer promotion is 'int' or 'unsigned int'.
+It is the latter only when 'int' can not represent all values of the
+original type. Essentially, small types are up-converted to the size
+of a machine word.
+
+
+The usual arithmetic conversion define the type of an arithmetic
+operation given the types of its arguments after promotion. It is an
+integer type with a rank corresponding to the highest rank of its
+arguments (after promotion) and it is the signed type if and only
+if the signed type can represent all values of the original types.
+
+
+Taken together, the rule is simple:
+
+The result type has rank corresponding to the maximum of the
+rank of the two arguments and the rank of int. The type is
+signed iff it can represent all values of the types of the
+arguments and is unsigned otherwise.
+
+
+
+Onecan compute the type with this simple logic:
+
+
+```
+  // compute rank after integer promotion and usual arithmetic conversion
+  #define UAC_RANK(A, B)	MAX(MAX(RANK(A), RANK(B)), RANK(int))
+
+  // signed type is used when it can represent all values of the original types
+  #define SGN_OK(A, B) (MAXVAL(TYPE(UAC_RANK(A, B))) >= MAX(MAXVAL(A), MAXVAL(B)))
+
+  // type after usual arithmetic conversion
+  #define UAC(A, B) TYPE_CHOOSE(SGN_OK(A, B), TYPE(UAC_RANK(A, B)), TYPE_UNSIGNED(UAC_RANK(A, B)))
+```
+
+* https://godbolt.org/z/zjbPajoa7
+
+
