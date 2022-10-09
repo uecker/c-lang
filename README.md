@@ -18,6 +18,7 @@ addressing them.
 * [Unions](./unions.mkd)
 * [Structs](./structs.mkd)
 * [Macros](./macros.mkd)
+* [Conversions](./conversions.mkd)
 
 ## Existing Extensions ##
 

@@ -52,17 +52,28 @@ to be in the heade.
 C has a WYSIWYG property: What you see is what you get.
 
 * There is no code running behing your back (e.g. no
-  destructor at end of a compound statement)
+  destructor at end of a compound statement, no copy
+  constructor, no exceptions).
   
 * There is no complicated name lookup.
 
 * Except for macros and constant folding, there is 
-  no compile time computation.
+  no compile time computation. The result of macro
+  expansion can be inspected.
 
 * There are no references, so there is a clear syntactic
   difference between pass-by-value and pointers and it is
-  obvious whether a function can change a variable.
-  
+  obvious whether a function can change a variable. This
+  makes code easier to understand, e.g. in the following
+  code it is obvious that 'foo' and not modify 'i'.
+
+  ```
+    int i = 0;
+    foo(i);
+    // i is 0
+
+  ```
+
 ## Performance ##
 
 C code can be very performant because there is not much
@@ -91,6 +102,12 @@ the programming language (a class hierarchy, the design of generic
 compile-time algorithms, etc.) and how those might fit together,
 one is free to concentrate on the problem at hand. Nevertheless
 it is possible to write high-level and generic code in C.  
+
+
+Some parts of C are considered difficult, such as implicit
+conversions, but the rules are actually quite simple.
+See [Conversions](./conversions.mkd).
+
 
 
 ## The proof is in the pudding ##
