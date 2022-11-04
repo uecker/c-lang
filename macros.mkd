@@ -39,7 +39,12 @@ int main()
  foo((int[]){ 0, 0 })
  ```
 
-6. Comound expressions can not be used safely inside [Statement Expression]
+6. Compound expressions can not be used safely inside [Statement Expressions](./stexpr.mkd)
+
+Life time of a compound expressions used in a macro written using a statement
+expression ends, so can not be returned.
+
+
  
  New kind of macros?
  ```
