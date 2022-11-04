@@ -4,11 +4,13 @@
 Macros programming relies on extensions such as [Typeof](./typeof.mkd),
 [auto](./auto.mkd), and [Statement Expressions](./stexpr.mkd).
 
-Multi-line macros are annoying
+There are still a couple of problems
 
-Collisions of variable names
+1. Multi-line macros are annoying
 
-Semicolons can not appear as part of arguments
+2. Collision of variable names
+
+3. Semicolons can not appear as part of arguments
 
 
     #define min(x, y) \
@@ -17,13 +19,14 @@ Semicolons can not appear as part of arguments
        (_x < _y) ? _x : _y;  \
     })
 
- Some kind of pattern matching would be useful
+4. No pattern matching of expression
  
- Compound expressions can not be used safely in macros because curly brackets are not parsed:
+5. Compound expressions can not be used safely in macros because curly brackets are not parsed:
  ```
  foo((int[]){ 0, 0 })
  ```
-  
+
+6. Comound expressions can not be used safely inside [Statement Expression]
  
  New kind of macros?
  ```
