@@ -10,15 +10,28 @@ There are still a couple of problems
 
 2. Collision of variable names
 
+```
+#define foo(x)              \
+({                          \
+    __auto_type a = (x);    \
+})
+
+int main()
+{
+    int a = 1;
+    foo(a);
+}
+```
+
 3. Semicolons can not appear as part of arguments
 
-
-    #define min(x, y) \
-    ({ __auto_type _x = (x); \
-       __auto_type _y = (y); \
-       (_x < _y) ? _x : _y;  \
-    })
-
+```
+#define min(x, y)           \
+({  __auto_type _x = (x);   \
+    __auto_type _y = (y);   \
+    (_x < _y) ? _x : _y;    \
+})
+```
 4. No pattern matching of expression
  
 5. Compound expressions can not be used safely in macros because curly brackets are not parsed:
