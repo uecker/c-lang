@@ -1,9 +1,9 @@
 
 ### Strings ###
 
-One problem with C is that sting handling is error-prone.
+One problem with C is that string handling is error-prone.
 
-A pointer types that indicates that it points to a null-terminated string could help.
+A pointer type that indicates that it points to a null-terminated string could help.
 
 String libraries can be used for safe string handling.
 
