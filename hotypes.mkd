@@ -1,0 +1,184 @@
+
+Generic Programming
+===================
+
+Type-safe generic programming requires a higher-order type system.
+
+
+
+The idea is to add reified types using a type '_Type' which has
+values that represent C types.
+
+```
+_Type T = _Typeof(int);
+```
+
+
+The reverse operation is _Var(T) which takes values of type '_Type'
+and returns a typename.
+
+```
+int i;
+_Var(_Typeof(int)) *ip = &i;
+```
+
+
+We then also allow compile-time constants of type '_Type' If such
+a compile-time constant is used with `_Var' it returns a typename.
+The existing type of operator is then equivalent to a pair of
+'_Typeof' and '_Var'.
+
+
+```
+typeof(T) = _Var(_Typeof(T))
+```
+
+
+Type Safety
+-----------
+
+We can enhance function (or other) declarations by replacing 'void'
+with polymorhic types `_Var(T)'.  If the type is not known at
+compile-time this can not be used when properties of the type (such as
+its size) need to be used at compile time.  But it can always be used
+for a pointers.
+
+```
+void sort(int N, _Type T, _Var(T) array[static N], 
+          int (*cmp)(const _Var(T)* a, const _Var(T)* b))
+{
+	qsort(array, N, sizeof(_Var(T)), cmp);
+}
+```
+
+
+The advantage over macro approaches is that `sort` is a proper C function
+whose address can be used, which can itself be passed as an argument
+to other functions (higher-order programming) at run-time (and not only
+at compile-time) and that the ABI is well defined
+
+
+
+
+Foreign Function Interface
+--------------------------
+
+```
+extern void
+ffi_call(_Type fun_t, vood (*fun_ptr)(void), void *ret,  ...);
+```
+
+
+Implementation
+--------------
+
+Internally, the type 'type' should be a pointer to a string which represents
+the serialized type.  '_Typeof' serializes the type and produces a string
+literal while '_Var' parses the string and produces a typename.
+
+
+
+String Literal
+--------------
+
+It might also be interesting to have a conversion to strings.
+
+```
+_Var("int") x;
+printf("%s\n", _Typeof(x));
+```
+
+This would enable certain compile-time operations:
+
+```
+_Var("int" "[5]") x;
+```
+
+
+Variably Length Arrays and Varialy Modified Types
+-------------------------------------------------
+
+A variable length array is a dependent type, i.e. a type which
+depends on a value. In this case `_Var` would take additional
+arguments depending on the kind of the type that provide the
+missing information.
+
+
+```
+_Var("int[*]", 3) a;
+int i = 3;
+_Var("int(*)[*][3][*]", 4, i) b;
+```
+
+If these arguments are integer constant expressions, the resulting
+type could be a regular array type, while for run-time expressions
+the type would be a variably modified type.
+
+
+Variably Modified Types Depending on Types
+------------------------------------------
+
+The same idea can be extended to polymorphic types. Here, the
+argument would be a value of type 'type'.
+
+
+```
+type t = _Typeof(int);
+_Var("_Var(+)", t)
+```
+
+If we apply '_Typeof' to the 'sort' function above, we obtain:
+
+```
+void(int, _Type, _Var(+)[static *], int (*)(const _Var(+)*, const _Var(+)*))
+```
+
+This is similar to how the type of a generic
+
+
+Open Questions
+--------------
+
+Currently, with existing variably modified types it is not possible
+to do full type checking at compile-time. For example, consider the
+following function:
+
+```
+int mat_transpose(int A, int B, double (*dst)[B][A], const double (*in)[A][B]);
+```
+
+
+From the perspectice of the C type sytem, the type is the same as:
+```
+int mat_transpose(int A, int B, double (*dst)[*][*], const double (*in)[*][*]);
+```
+
+Here, the relationship to the parameter 'A' is lost 'B'.  GCC currently
+translates records the position of the argument and matches for
+correspondence, but if the size expressions are more complicated does
+a string comparison.
+
+
+In some cases, it might also be useful to omit some argument, e.g.
+the existing qsort function does not take a type argument, but
+it still be useful to verify at compile-time that the types at
+different position match:
+
+
+```
+void qsort(size_T N, size_t S, _Var(T) array[static N], 
+           int (*cmp)(const _Var(T)* a, const _Var(T)* b));
+```
+
+
+Potentially, one could forward declare the type variable without
+requiring a formal parameter:
+
+```
+void qsort(type T; size_T N, size_t S, _Var(T) array[static N], 
+           int (*cmp)(const _Var(T)* a, const _Var(T)* b));
+```
+
+Also see, `the void that binds' propsoal by Alex Gilding.
+
+
