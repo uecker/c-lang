@@ -1,10 +1,13 @@
 
 # Representations #
 
-In the past, machine used very unusual representations for each
-native types.
+In the past, some architectures used very unusual representations
+for native types.
 
 With C23, C will require two's complement.
 
-Null pointers do not need to have a 0 representation.
+Null pointers do not need to have a all-zero representation.
+
+
+* https://begriffs.com/posts/2018-11-15-c-portability.html
 

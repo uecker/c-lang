@@ -38,7 +38,7 @@ arguments and is unsigned otherwise.
 
 
 
-Onecan compute the type with this simple logic:
+One can compute the type with this simple logic:
 
 
 ```

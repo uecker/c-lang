@@ -16,14 +16,14 @@ addressing them.
 * [Atomics](./atomics.mkd)
 * [Labels](./labels.mkd) *C23 Improvements*
 * [Unions](./unions.mkd)
-* [Structs](./structs.mkd)
+* [Structs](./structs.mkd) *C23 Improvements*
 * [Macros](./macros.mkd)
 * [Conversions](./conversions.mkd)
 
 ## Existing Extensions ##
 
 * [Typeof](./typeof.mkd) *C23*
-* [Auto](./auto.mkd)
+* [Auto](./auto.mkd) *C23*
 * [Checked Integer Arithmetic](./checked.mkd) *C23*
 * [Statement Expressions](./stexp.mkd)
 * [Nested Functions](./nested.mkd)
@@ -45,3 +45,4 @@ addressing them.
 * [Bounds Checking](./bounds.mkd) *C23 Improvements*
 * [Undefined Behavior](./undef.mkd)
 * [Weird Representations](./repr.mkd)
+

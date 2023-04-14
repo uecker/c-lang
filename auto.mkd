@@ -4,10 +4,16 @@
 C++ has auto. Compilers support __auto_type as an extension
 
   auto x = 3;
-  
+
+
+C23 will add auto.
   
 There is a difference for __auto_type between clang and GCC.
 For GCC the identifier is not declared until after the
 initialization while for clang this is an error.  
+
+
+C23 Issue: auto is still a storage-class specifier and not
+a type specifier.
   
 

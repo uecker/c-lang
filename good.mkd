@@ -12,7 +12,7 @@ There are different reasons for this:
 1. One-Pass Compilation
 
 C has a once-through grammar. It is possible to do tokenizing,
-parsing, constant folding, type checking, and create an
+parsing, constant folding, type checking, and creation of an
 intermedate language (or even machine code) in one pass. It is
 not necessary to produce an AST which is then traversed again.
 (GCC for example compiles C to a tree structure, but this is
