@@ -24,7 +24,7 @@ _Var(_Typeof(int)) *ip = &i;
 ```
 
 
-We then also allow compile-time constants of type '_Type' If such
+We then also allow compile-time constants of type '_Type'. If such
 a compile-time constant is used with `_Var' it returns a typename.
 The existing type of operator is then equivalent to a pair of
 '_Typeof' and '_Var'.
@@ -194,4 +194,15 @@ void qsort(type T; size_T N,
 
 Also see `the void that binds' proposal by Alex Gilding.
 * https://open-std.org/jtc1/sc22/wg14/www/docs/n2853.pdf
+
+
+There is another ABI issue which needs to be resolved. If
+pointers to different types have different representation,
+then it is not clear whether a _Var(T)* should have the
+same representation as a void* or a T*.  Potentially one
+needs to differentiate between a _Void(T)* that is a
+converted _Var(T)* but that has the representation of
+(and is compatible to) a void pointer, while a
+_Var(_Typeof(S))* is the same as a S*.
+
 
