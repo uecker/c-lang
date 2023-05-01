@@ -3,6 +3,7 @@ Generic Programming
 ===================
 
 Type-safe generic programming requires a higher-order type system.
+This is a concept on how this could be added to C in a simple way.
 
 
 
@@ -37,17 +38,17 @@ typeof(T) = _Var(_Typeof(T))
 Type Safety
 -----------
 
-We can enhance function (or other) declarations by replacing 'void'
-with polymorhic types `_Var(T)'.  If the type is not known at
+We can enhance functions (or other) declarations by replacing 'void'
+with polymorphic types `_Var(T)'.  If the type is not known at
 compile-time this can not be used when properties of the type (such as
 its size) need to be used at compile time.  But it can always be used
-for a pointers.
+for pointers.
 
 ```
-void sort(int N, _Type T, _Var(T) array[static N], 
-          int (*cmp)(const _Var(T)* a, const _Var(T)* b))
+void sort(int N, _Type T, _Var(T) array[static 1][N], 
+          int (*cmp)(const _Var(T) a[static 1], const _Var(T) b[static 1]))
 {
-	qsort(array, N, sizeof(_Var(T)), cmp);
+	qsort(*array, N, sizeof(_Var(T)), cmp);
 }
 ```
 
@@ -55,7 +56,7 @@ void sort(int N, _Type T, _Var(T) array[static N],
 The advantage over macro approaches is that `sort` is a proper C function
 whose address can be used, which can itself be passed as an argument
 to other functions (higher-order programming) at run-time (and not only
-at compile-time) and that the ABI is well defined
+at compile-time) and that the ABI is well defined.
 
 
 
@@ -107,7 +108,7 @@ missing information.
 ```
 _Var("int[*]", 3) a;
 int i = 3;
-_Var("int(*)[*][3][*]", 4, i) b;
+_Var("int (*)[*][3][*]", 4, i) b;
 ```
 
 If these arguments are integer constant expressions, the resulting
@@ -130,10 +131,9 @@ _Var("_Var(+)", t)
 If we apply '_Typeof' to the 'sort' function above, we obtain:
 
 ```
-void(int, _Type, _Var(+)[static *], int (*)(const _Var(+)*, const _Var(+)*))
+void(int, _Type, _Var(+)[static 1][*], int (*)(const _Var(+)[static 1], const _Var(+)[static 1]))
 ```
 
-This is similar to how the type of a generic
 
 
 Open Questions
@@ -144,25 +144,25 @@ to do full type checking at compile-time. For example, consider the
 following function:
 
 ```
-int mat_transpose(int A, int B, double (*dst)[B][A], const double (*in)[A][B]);
+int transpose(int A, int B, double (*dst)[B][A], const double (*in)[A][B]);
 ```
 
 
 From the perspectice of the C type sytem, the type is the same as:
 ```
-int mat_transpose(int A, int B, double (*dst)[*][*], const double (*in)[*][*]);
+int transpose(int A, int B, double (*dst)[*][*], const double (*in)[*][*]);
 ```
 
-Here, the relationship to the parameter 'A' is lost 'B'.  GCC currently
-translates records the position of the argument and matches for
-correspondence, but if the size expressions are more complicated does
-a string comparison.
+Here, the relationship to the parameters 'A' and 'B' is lost.  GCC
+currently records the position of the argument for checking,
+but if the size expressions are more complicated it falls back
+to a string comparison.
 
 
 In some cases, it might also be useful to omit some argument, e.g.
 the existing qsort function does not take a type argument, but
-it still be useful to verify at compile-time that the types at
-different position match:
+it still would be useful to verify at compile-time that the types
+at different positions match:
 
 
 ```
@@ -172,13 +172,26 @@ void qsort(size_T N, size_t S, _Var(T) array[static N],
 
 
 Potentially, one could forward declare the type variable without
-requiring a formal parameter:
+requiring a corresponding parameter:
 
 ```
 void qsort(type T; size_T N, size_t S, _Var(T) array[static N], 
            int (*cmp)(const _Var(T)* a, const _Var(T)* b));
 ```
 
-Also see, `the void that binds' propsoal by Alex Gilding.
+The type could then be obtained by matching.  It is unclear
+how the condition S == sizeof(_Var(T)) could be ensured, but
+a general toolbox for preconditions (e.g C++'s contracts)
+could make use of this information:
 
+```
+void qsort(type T; size_T N,
+	   size_t S , _Var(T) array[static N],
+           int (*cmp)(const _Var(T)* a, const _Var(T)* b))
+	[[expects(S == sizeof(_Var(T))]];
+```
+
+
+Also see `the void that binds' proposal by Alex Gilding.
+* https://open-std.org/jtc1/sc22/wg14/www/docs/n2853.pdf
 
