@@ -127,4 +127,7 @@ Most software I use or rely on is written in C:
 * Apache https://www.apache.org/
 * PostgresSQL https://www.postgresql.org/
 
+* ffmpeg https://ffmpeg.org/
+* QEMU https://www.qemu.org/
+
 
